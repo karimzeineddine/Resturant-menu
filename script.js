@@ -1,7 +1,7 @@
 let sandwiches = [
     {
         name: "Classic Club burger",
-        price: 7,
+        price: 6,
         details: "Layers of turkey, ham, crispy bacon, lettuce, tomato, and mayonnaise on toasted multigrain bread. Served with a side of chips.",
         imageSrc: "images/homemade-burgers-on-white-background-600nw-2252720711.webp"
     },
@@ -14,18 +14,18 @@ let sandwiches = [
     {
         name: "Classic Cripsy plate ",
         price: 9.99,
-        details: "Layers of turkey, ham, crispy bacon, lettuce, tomato, and mayonnaise on toasted multigrain bread. Served with a side of chips.",
+        details: "8 pieces of our freshly prepared Extra Crispy Tenders served with 4 dipping sauces.",
         imageSrc: "images/Fried-Crunchy-Chicken-PNG-Download-Image.png"
     },
     {
         name: "Grilled Chicken",
-        price: 14.99,
+        price: 11.99,
         details: "2 garlic sauce + 1 mexican sauce + 2 pickles",
         imageSrc: "images/Farouj.jpg"
     },
     {
         name: "Falefel",
-        price: 3.99,
+        price: 2.99,
         details: " warm pita bread stuffed with crispy hot falafel balls, surrounded by cool and crunchy diced tomatoes, cucumbers, and onions, and drenched with nutty tahini sauce.",
         imageSrc: "images/Falefel.webp"
     },
@@ -51,25 +51,25 @@ let drinks = [
     },
     {
         name: "Water",
-        price: 0.5,
+        price: 0.49,
         details: "1 bottle",
         imageSrc: "images/Water.avif"
     },
     {
         name: "Redbull",
-        price: 3.99,
+        price: 2.99,
         details: "1 can",
         imageSrc: "images/redbull.jfif"
     },
     {
         name: "Fresh juice",
-        price: 1.99,
+        price: 1.49,
         details: "1 glass",
         imageSrc: "images/fresh juice.png"
     },
     {
         name: "Lemonade",
-        price: 2.5,
+        price: 1.99,
         details: "1 drink",
         imageSrc: "images/lemonade.jfif"
     },
@@ -91,11 +91,12 @@ let drinkItems = document.getElementById("drink-items");
 
 function renderItems() {
     sandwichItems.innerHTML = '';
-    sandwiches.forEach(sandwich => {
+    sandwiches.forEach((sandwich, index) => {
         sandwichItems.innerHTML += `
-            <div class="item">
+            <div class="item" data-index="${index}">
+                <p class="close-item" onclick="removeSandwich(${index})">X</p>
                 <div class="hello">
-                <img src="${sandwich.imageSrc}" alt="${sandwich.name}">
+                    <img src="${sandwich.imageSrc}" alt="${sandwich.name}">
                 </div>
                 <h2>${sandwich.name}</h2>
                 <p class="price">$${sandwich.price}</p>
@@ -105,11 +106,12 @@ function renderItems() {
     });
 
     drinkItems.innerHTML = '';
-    drinks.forEach(drink => {
+    drinks.forEach((drink, index) => {
         drinkItems.innerHTML += `
-            <div class="item">
+            <div class="item" data-index="${index}">
+                <p class="close-item" onclick="removeDrink(${index})">X</p>
                 <div class="hello">
-                <img src="${drink.imageSrc}" alt="${drink.name}">
+                    <img src="${drink.imageSrc}" alt="${drink.name}">
                 </div>
                 <h2>${drink.name}</h2>
                 <p class="price">$${drink.price}</p>
@@ -118,6 +120,19 @@ function renderItems() {
         `;
     });
 }
+
+// Function to remove a sandwich
+function removeSandwich(index) {
+    sandwiches.splice(index, 1);  // Remove the sandwich at the given index
+    renderItems();  // Re-render the items after removal
+}
+
+// Function to remove a drink
+function removeDrink(index) {
+    drinks.splice(index, 1);  // Remove the drink at the given index
+    renderItems();  // Re-render the items after removal
+}
+
 
 
 function remove() {
