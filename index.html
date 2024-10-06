@@ -1,277 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Menu</title>
-    <style>
-        * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Menu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+
+    }
+
+    .add-item-container {
+      width: 400px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      position: fixed;
+      /* Fixed position */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      /* Ensures it's on top of other elements */
+    }
+
+    .add-item-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .add-item-nav h2 {
+      font-size: 24px;
+    }
+
+    .close-button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .add-item-form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .submit-button {
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .submit-button:hover {
+      background-color: #218838;
+    }
+
+    .menu {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .item {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin: 15px 0;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .hello {
+      width: 100%;
+      height: 230px;
+      border-radius: 5px;
+    }
+
+    .hello img {
+      width: 100%;
+      height: 100%;
+      position: cover;
+    }
+
+    h2 {
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #e67e22;
+    }
+
+    .details {
+      color: #777;
+      font-size: 0.9em;
+    }
+
+    .row-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .nav-menu {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .nav-menu p {
+      font-size: 50px;
+    }
+
+    #error p {
+      color: red;
+      font-size: 14px;
+    }
+
+    /* Blur background when form is active */
+    .blurred {
+      filter: blur(5px);
+      transition: filter 0.3s ease;
+    }
+
+    /* Add a backdrop blur effect for the active form */
+    .add-item-container {
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.8);
+      /* Semi-transparent */
+      height: 100vh;
+      width: 100%;
+    }
+
+    .container {
+      width: 40%;
+      height: 90%;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+    }
+
+    #head {
+      font-size: 60px;
+      color: #e67e22;
+    }
+
+    .menu h1 {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    hr {
+      margin-top: 20px;
+      border: 1px solid black;
+    }
+
+    @media (max-width:950px) {
+      .add-item-container {
+        width: 100%;
+      }
+      #image-container{
+        width: 90%;
+      }
+      #name1{
+        width: 100%;
+      }
+      
+      #about{
+        display: flex;
+       flex-direction: column;
+       height: 900px;
+       gap: 0px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        height: 570px;
+      }
+      .main-image{
+        width: 100%;
+        height: 100%;
+      }
+      nav ul {
+        flex-direction: column;
+      }
+
+      nav ul li {
+        margin: 0.5rem 0;
+      }
+
+      .overlay {
+        width: 90%;
+        padding: 1.5rem;
+      }
+
+      .overlay h1 {
+        font-size: 2.5rem;
+      }
+
+      .overlay p {
+        font-size: 1.2rem;
+      }
+
+      header {
+        background-color: #333;
+        padding: 1rem;
+      }
+
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 0 1.5rem;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+
+    .head1 {
+      height: 100vh;
+    }
+
+    header {
+      background-color: #333;
+      padding: 1rem;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin: 0 1.5rem;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hero {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+
+    .main-image {
+      width: 100%;
+      height: auto;
+      opacity: 0.9;
+      height: 100%;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    .overlay h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+
+    .overlay p {
+      font-size: 1.5rem;
+    }
+    .about {
+    padding: 4rem 2rem;
+    background-color: #f8f1e1; /* Soft beige background */
+    text-align: center;
+    color: #333;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
 }
 
-body {
-   
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+.about h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #b54d15; /* Dark orange */
+}
+
+.about p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.about .highlight {
+    font-weight: bold;
+    color: #d35400; /* Burnt orange for emphasis */
+}
+
+.about .image-container {
+    width: 50%;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.about img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact Section */
+.contact {
+    padding: 2rem;
+    background-color: #fff;
+    text-align: center;
+
+}
+
+.contact h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.contact p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contact ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact ul li {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+.name{
+  width: 50%;
   padding: 20px;
 }
 
-.add-item-container {
-  width: 400px;
-  margin: 0 auto;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  position: fixed; /* Fixed position */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100; /* Ensures it's on top of other elements */
-}
-
-.add-item-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.add-item-nav h2 {
-  font-size: 24px;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.add-item-form {
-  margin-top: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.submit-button {
-  width: 100%;
-  background-color: #28a745;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.submit-button:hover {
-  background-color: #218838;
-}
-
-.menu {
-  max-width: 1000px;
-  margin: auto;
-
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-.item {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin: 15px 0;
-  padding: 15px;
-  text-align: center;
-}
-
-.hello {
-  width: 100%;
-  height: 230px;
-  border-radius: 5px;
-}
-.hello img{
-  width: 100%;
-  height: 100%;
-  position: cover;
-}
-
-h2 {
-  color: #555;
-  margin: 10px 0;
-}
-
-.price {
-  font-weight: bold;
-  color: #e67e22;
-}
-
-.details {
-  color: #777;
-  font-size: 0.9em;
-}
-
-.row-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.hidden {
-  display: none;
-}
-
-.nav-menu {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.nav-menu p {
-  font-size: 50px;
-}
-
-#error p {
-  color: red;
-  font-size: 14px;
-}
-
-/* Blur background when form is active */
-.blurred {
-  filter: blur(5px);
-  transition: filter 0.3s ease;
-}
-
-/* Add a backdrop blur effect for the active form */
-.add-item-container {
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent */
-  height: 100vh;
-  width: 100%;
-}
-
-.container{
-  width: 40%;
-  height: 90%;
- margin: auto;
- background-color: white;
- padding: 20px;
-}
-#head{
-  font-size: 60px;
-  color: #e67e22;
-}
-.menu h1{
-  display: flex;
-  justify-content: flex-start;
-}
-hr{
-  margin-top: 20px;
-  border: 1px solid black;
-}
-@media (max-width:950px) {
-  .add-item-container{
-    width: 100%;
-  }
-  .container{
-    width: 70%;
-  }
-}
-    </style>
+  </style>
 </head>
+
 <body>
-    <h1 id="head">Golden Plate</h1>
-    
-    <div class="menu" id="main">
-        <div class="nav-menu">
-            <p onclick="add()">+</p>
-        </div>
-        <div class="sandwich">
-            <h1>Sandwiches</h1>
-            <hr>
-            <div class="row-items" id="sandwich-items">
-                
-            </div>
-        </div>
 
-        <div class="drinks">
-            <h1>Drinks</h1>
-            <hr>
-            <div class="row-items" id="drink-items">
-                
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="add-item-container hidden" >
-      <div class="container">
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Menu</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <nav class="add-item-nav">
-          <h2>Add Item</h2>
-          <button class="close-button" onclick="remove()">X</button>
-        </nav>
-        
-        <form class="add-item-form" id="add-item-form">
-          <div class="form-group">
-            <label for="category">Category</label>
-            <select id="category" name="category">
-                <option value="Select Category">Select Category</option>
-                <option value="sandwiches">Sandwiches</option>
-                <option value="drinks">Drinks</option>
-            </select>
-          </div>
-
-            <div class="form-group">
-              <label for="image">Add Image</label>
-              <input type="file" id="image" name="image" accept="image/*" required>
-            </div>
-      
-            <div class="form-group">
-              <label for="name">Item Name</label>
-              <input type="text" id="name" name="name" required>
-            </div>
-      
-            <div class="form-group">
-              <label for="price">Item Price</label>
-              <input type="number" id="price" name="price" required>
-            </div>
-      
-            <div class="form-group">
-              <label for="details">Item Details</label>
-              <textarea id="details" name="details" rows="4" required></textarea>
-            </div>
-            <div id="error"></div>
-            <button type="submit" class="submit-button">Add Item</button>
-          </form>
+  <main>
+    <section class="hero">
+      <img src="images/Food2.png" alt="Restaurant Menu" class="main-image">
+      <div class="overlay">
+        <h1>Welcome To The Golden Plate Restaurant</h1>
+        <p>Delicious Food Awaits You</p>
       </div>
-     </div>
-      
-      <script src="script.js"></script>
+    </section>
+  </main>
+
+  <div class="menu" id="main">
+    <div class="nav-menu">
+      <p onclick="add()">+</p>
+    </div>
+    <div class="sandwich">
+      <h1>Sandwiches</h1>
+      <hr>
+      <div class="row-items" id="sandwich-items">
+
+      </div>
+    </div>
+
+    <div class="drinks">
+      <h1>Drinks</h1>
+      <hr>
+      <div class="row-items" id="drink-items">
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="add-item-container hidden">
+    <div class="container">
+
+      <nav class="add-item-nav">
+        <h2>Add Item</h2>
+        <button class="close-button" onclick="remove()">X</button>
+      </nav>
+
+      <form class="add-item-form" id="add-item-form">
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" name="category">
+            <option value="Select Category">Select Category</option>
+            <option value="sandwiches">Sandwiches</option>
+            <option value="drinks">Drinks</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Add Image</label>
+          <input type="file" id="image" name="image" accept="image/*" required>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Item Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Item Price</label>
+          <input type="number" id="price" name="price" required>
+        </div>
+
+        <div class="form-group">
+          <label for="details">Item Details</label>
+          <textarea id="details" name="details" rows="4" required></textarea>
+        </div>
+        <div id="error"></div>
+        <button type="submit" class="submit-button">Add Item</button>
+      </form>
+    </div>
+  </div>
+   <!-- About Section -->
+   <section id="about" class="about">
+    <div class="name" id="name1">
+      <h2>About Us</h2>
+      <p>At <span class="highlight">Golden PLate</span>, we are committed to providing you with an exceptional dining experience. Our chefs bring decades of experience to the kitchen, creating delightful meals that tantalize your taste buds. We use only the freshest ingredients sourced locally to ensure quality in every bite.</p>
+      <p>Whether you're enjoying a quiet meal with family or hosting a special event, <span class="highlight">Golden Plate</span> delivers a memorable experience for all occasions. Visit us today to discover the flavors that set us apart!</p>
+    </div>
+    <div class="image-container" id="image-container">
+        <img src="images/Food3.jpg" alt="Our Restaurant">
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p>We would love to hear from you! Reach out to us for any inquiries, reservations, or feedback.</p>
+    <ul>
+        <li><strong>Address:</strong> 123 Food Street, Gourmet City</li>
+        <li><strong>Phone:</strong> (123) 456-7890</li>
+        <li><strong>Email:</strong> info@restaurantname.com</li>
+    </ul>
+</section>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
